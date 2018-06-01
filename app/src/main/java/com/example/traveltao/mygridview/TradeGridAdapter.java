@@ -1,51 +1,23 @@
 package com.example.traveltao.mygridview;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
-
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public class TradeGridAdapter extends BaseAdapter {
-    private static int ROW_NUMBER =2;
-    private static int itemMaxNum =4;
-    private List<Map<String, Object>> dataList;
     private Context context;
-    private GridView tradeGridView;
+    private ArrayList<TradeMsg> dataList;
+    //private Drawable drawable;
 
-    private float buy_money, buy_cash, sale_money, sale_cash;
-
-    private String[] tradeTitleMsg = new String[]{"我要买现金", "我要买现汇", "我要卖现金", "我要卖现汇"};
-    private String[] tradeMoney = new String[]{"null", "null", "null", "null"};
-    private String[] tradeTips = new String[]{"银行向客户卖出现钞的价格", "银行向客户卖出现汇的价格",
-            "银行向客户买入现钞的价格", "银行向客户买入现汇的价格"};
-
-    public TradeGridAdapter(Context context, GridView gridView){
+    public TradeGridAdapter(Context context, ArrayList<TradeMsg> dataList){
         this.context = context;
-        tradeGridView = gridView;
-        dataList = new ArrayList<>();
-
-        for (int i=0; i<itemMaxNum; i++) {
-            Map<String, Object> map = new HashMap<>();
-            //map.put("buy_title_img", buy_title_img);
-            map.put("trade_title", tradeTitleMsg[i]);
-            map.put("trade_money", tradeMoney[i]);
-            map.put("trade_tips", tradeTips[i]);
-            dataList.add(map);
-        }
-    }
-
-    public void setMoney(String[] money){
-        for (int i=0; i<itemMaxNum; i++) {
-            tradeMoney[i] = money[i];
-        }
+        this.dataList = dataList;
     }
 
     @Override
@@ -74,26 +46,26 @@ public class TradeGridAdapter extends BaseAdapter {
             holder = new Holder();
             convertView = LayoutInflater.from(context).inflate(R.layout.trade_grid_item, null);
 
+            holder.img_trade_title_img = convertView.findViewById(R.id.trade_title_img);
             holder.tv_trade_title = convertView.findViewById(R.id.trade_title);
             holder.tv_trade_money = convertView.findViewById(R.id.trade_money);
             holder.tv_trade_tips = convertView.findViewById(R.id.trade_tips);
 
-            holder.tv_trade_title.setText(tradeTitleMsg[position]);
-            holder.tv_trade_money.setText(tradeMoney[position]);
-            holder.tv_trade_tips.setText(tradeTips[position]);
+            holder.img_trade_title_img.setImageResource(dataList.get(position).getTradeTitleImg());
+            holder.tv_trade_title.setText(dataList.get(position).getTradeTitleMsg());
+            holder.tv_trade_money.setText(dataList.get(position).getTradeMoney());
+            holder.tv_trade_tips.setText(dataList.get(position).getTradeTips());
 
             convertView.setTag(holder);
         }else {
             holder = (Holder) convertView.getTag();
         }
 
-//        AbsListView.LayoutParams param = new AbsListView.LayoutParams(
-//                ViewGroup.LayoutParams.MATCH_PARENT, tradeGridView.getHeight() / ROW_NUMBER);
-//        convertView.setLayoutParams(param);
         return convertView;
     }
 
     class Holder {
+        ImageView img_trade_title_img;
         TextView tv_trade_title;
         TextView tv_trade_money;
         TextView tv_trade_tips;

@@ -4,27 +4,39 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.GridView;
 
+import java.util.ArrayList;
+
 public  class TradeGridView extends GridView{
+
+    private ArrayList<TradeMsg> tradeMsgArrayList;
+    private TradeGridAdapter tradeGridAdapter;
 
     public TradeGridView(Context context){
         super(context);
-        set();
     }
 
     public TradeGridView(Context context, AttributeSet attributeSet){
         super(context, attributeSet);
-        set();
     }
 
     public TradeGridView(Context context, AttributeSet attributeSet, int defStyleAttr){
         super(context, attributeSet, defStyleAttr);
-        set();
     }
 
-    private void set(){
-        setNumColumns(2);
-        setBackgroundColor(getResources().getColor(R.color.littlegray));
-        setVerticalSpacing(40);
-        setHorizontalSpacing(40);
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        tradeMsgArrayList = new ArrayList<>();
+        tradeGridAdapter = new TradeGridAdapter(getContext(), tradeMsgArrayList);
+        setAdapter(tradeGridAdapter);
     }
+
+    public void setDatas(ArrayList<TradeMsg> list) {
+        if (null != list && 0 < list.size()) {
+            tradeMsgArrayList.clear();
+            tradeMsgArrayList.addAll(list);
+            tradeGridAdapter.notifyDataSetChanged();
+        }
+    }
+
 }

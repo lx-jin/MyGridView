@@ -9,7 +9,11 @@
     <com.example.traveltao.mygridview.TradeGridView
         android:id="@+id/tradeGridView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:numColumns="2"
+        android:padding="10dp"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp">
     </com.example.traveltao.mygridview.TradeGridView>
 
 </android.support.constraint.ConstraintLayout>
