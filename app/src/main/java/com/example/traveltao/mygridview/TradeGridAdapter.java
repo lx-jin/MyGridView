@@ -1,21 +1,33 @@
 package com.example.traveltao.mygridview;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 
 public class TradeGridAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<TradeMsg> dataList;
-    //private Drawable drawable;
+    private Drawable titleDrawable;
+    private String titleMsg, money, tips;
 
-    public TradeGridAdapter(Context context, ArrayList<TradeMsg> dataList){
+    private int clickTemp = -1;
+
+    private static final int TITLE_DRAWABLE_RIGHT = 100;
+    private static final int TITLE_DRAWABLE_BOTTOM = 70;
+
+    private int itemTitleColor;
+    private Drawable itemColor;
+    private Drawable tradeItemColorDefault;
+
+    public TradeGridAdapter(Context context, ArrayList<TradeMsg> dataList) {
         this.context = context;
         this.dataList = dataList;
     }
@@ -34,7 +46,7 @@ public class TradeGridAdapter extends BaseAdapter {
     public int getCount() {
         if (dataList != null) {
             return dataList.size();
-        }else {
+        } else {
             return 0;
         }
     }
@@ -46,28 +58,59 @@ public class TradeGridAdapter extends BaseAdapter {
             holder = new Holder();
             convertView = LayoutInflater.from(context).inflate(R.layout.trade_grid_item, null);
 
-            holder.img_trade_title_img = convertView.findViewById(R.id.trade_title_img);
-            holder.tv_trade_title = convertView.findViewById(R.id.trade_title);
-            holder.tv_trade_money = convertView.findViewById(R.id.trade_money);
-            holder.tv_trade_tips = convertView.findViewById(R.id.trade_tips);
-
-            holder.img_trade_title_img.setImageResource(dataList.get(position).getTradeTitleImg());
-            holder.tv_trade_title.setText(dataList.get(position).getTradeTitleMsg());
-            holder.tv_trade_money.setText(dataList.get(position).getTradeMoney());
-            holder.tv_trade_tips.setText(dataList.get(position).getTradeTips());
+            holder.tradeGridItemBoder = convertView.findViewById(R.id.tradeGridItemBoder);
+            holder.tvTradeTitle = convertView.findViewById(R.id.tradeTitle);
+            holder.tvTradeMoney = convertView.findViewById(R.id.tradeMoney);
+            holder.tvTradeTips = convertView.findViewById(R.id.tradeTips);
 
             convertView.setTag(holder);
-        }else {
+        } else {
             holder = (Holder) convertView.getTag();
+        }
+
+        TradeMsg tradeMsg = (TradeMsg) getItem(position);
+        titleDrawable = tradeMsg.getTitleDrawable();
+        titleMsg = tradeMsg.getTitleMsg();
+        money = tradeMsg.getMoney();
+        tips = tradeMsg.getTips();
+
+        tradeItemColorDefault = context.getResources()
+                .getDrawable(R.drawable.trade_grid_item_boder);
+
+        titleDrawable.setBounds(0, 0, TITLE_DRAWABLE_RIGHT, TITLE_DRAWABLE_BOTTOM);
+        holder.tvTradeTitle.setCompoundDrawables(titleDrawable, null,
+                null, null);
+        holder.tvTradeTitle.setText(titleMsg);
+        holder.tvTradeMoney.setText(money);
+        holder.tvTradeTips.setText(tips);
+
+        if (clickTemp == position) {
+            holder.tradeGridItemBoder.setBackground(itemColor);
+            holder.tvTradeTitle.setTextColor(itemTitleColor);
+        } else {
+            holder.tradeGridItemBoder.setBackground(tradeItemColorDefault);
+            holder.tvTradeTitle.setTextColor(Color.BLACK);
         }
 
         return convertView;
     }
 
-    class Holder {
-        ImageView img_trade_title_img;
-        TextView tv_trade_title;
-        TextView tv_trade_money;
-        TextView tv_trade_tips;
+    public void setSelectedItemTitleColor(int color) {
+        this.itemTitleColor = color;
+    }
+
+    public void setSelectedItemColor(Drawable tradeItemColor) {
+        this.itemColor = tradeItemColor;
+    }
+
+    public void setSelection(int position) {
+        clickTemp = position;
+    }
+
+    private class Holder {
+        LinearLayout tradeGridItemBoder;
+        TextView tvTradeTitle;
+        TextView tvTradeMoney;
+        TextView tvTradeTips;
     }
 }

@@ -1,62 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tradeGridItemBoder"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/trade_grid_item_boder"
     android:gravity="center"
     android:orientation="vertical">
 
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/tradeTitle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:background="@drawable/trade_grid_item_boder">
+        android:layout_height="wrap_content"
+        android:background="#ffcccccc"
+        android:drawableLeft="@mipmap/ic_launcher"
+        android:drawablePadding="5dp"
+        android:gravity="center"
+        android:paddingBottom="5dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="5dp"
+        android:text="TextView"
+        android:textSize="15sp" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#ffcccccc"
-            android:orientation="horizontal">
+    <TextView
+        android:id="@+id/tradeMoney"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:text="TextView"
+        android:textSize="15sp" />
 
-
-
-            <TextView
-                android:id="@+id/trade_title"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:textSize="15sp"
-                android:text="TextView" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/trade_money"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:paddingTop="15dp"
-            android:paddingBottom="10dp"
-            android:textSize="15sp"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/trade_tips"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:textSize="10sp"
-            android:text="TextView" />
-
-    </LinearLayout>
+    <TextView
+        android:id="@+id/tradeTips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="5dp"
+        android:text="TextView"
+        android:textSize="10sp" />
 
 </LinearLayout>

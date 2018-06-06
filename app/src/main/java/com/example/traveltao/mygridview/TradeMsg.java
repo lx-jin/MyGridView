@@ -1,52 +1,37 @@
 package com.example.traveltao.mygridview;
 
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 
 public class TradeMsg {
-    private int tradeTitleImg;
-    private Drawable tradeTitleDrawable;
-    private String tradeTitleMsg;
-    private String tradeMoney;
-    private String tradeTips;
+    private Drawable titleDrawable;
+    private String titleMsg;
+    private String money;
+    private String tips;
 
-    public TradeMsg(String tradeTitleMsg, String tradeMoney, String tradeTips){
-        this.tradeTitleMsg = tradeTitleMsg;
-        this.tradeMoney = tradeMoney;
-        this.tradeTips = tradeTips;
+    public TradeMsg() {
+
     }
 
-    public TradeMsg(int tradeTitleImg, String tradeTitleMsg, String tradeMoney, String tradeTips){
-        this.tradeTitleImg = tradeTitleImg;
-        this.tradeTitleMsg = tradeTitleMsg;
-        this.tradeMoney = tradeMoney;
-        this.tradeTips = tradeTips;
+    public TradeMsg(Drawable titleDrawable, String titleMsg, String money, String tips) {
+        this.titleDrawable = titleDrawable;
+        this.titleMsg = titleMsg;
+        this.money = money;
+        this.tips = tips;
     }
 
-    public TradeMsg(Drawable tradeTitleDrawable, String tradeTitleMsg, String tradeMoney, String tradeTips){
-        this.tradeTitleDrawable = tradeTitleDrawable;
-        this.tradeTitleMsg = tradeTitleMsg;
-        this.tradeMoney = tradeMoney;
-        this.tradeTips = tradeTips;
+    public Drawable getTitleDrawable() {
+        return titleDrawable;
     }
 
-    public int getTradeTitleImg() {
-        return tradeTitleImg;
+    public String getTitleMsg() {
+        return titleMsg;
     }
 
-    public Drawable getTradeTitleDrawable() {
-        return tradeTitleDrawable;
+    public String getMoney() {
+        return money;
     }
 
-    public String getTradeTitleMsg() {
-        return tradeTitleMsg;
-    }
-
-    public String getTradeMoney() {
-        return tradeMoney;
-    }
-
-    public String getTradeTips() {
-        return tradeTips;
+    public String getTips() {
+        return tips;
     }
 }

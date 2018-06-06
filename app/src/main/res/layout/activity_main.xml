@@ -13,7 +13,9 @@
         android:numColumns="2"
         android:padding="10dp"
         android:verticalSpacing="10dp"
-        android:horizontalSpacing="10dp">
+        android:horizontalSpacing="10dp"
+        app:selectedItemTitleColor="#0000FF"
+        app:selectedItemColor="@drawable/trade_grid_item_theme_boder">
     </com.example.traveltao.mygridview.TradeGridView>
 
 </android.support.constraint.ConstraintLayout>
