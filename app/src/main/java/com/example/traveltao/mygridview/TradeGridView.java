@@ -15,16 +15,16 @@ public class TradeGridView extends GridView {
     private ArrayList<TradeMsg> tradeMsgArrayList;
     private TradeGridAdapter tradeGridAdapter;
 
-    private OnItemClickListener listener;
+    private OnItemClickListener onItemClickListener;
 
     private int itemTitleColor = Color.BLUE;
     private Drawable itemColor = getContext().getResources().getDrawable(
             R.drawable.trade_grid_item_theme_boder);
 
-    private static final int BUY_CASH_POS = 0;
-    private static final int BUY_CURRENCY_POS = 1;
-    private static final int SALE_CASH_POS = 2;
-    private static final int SALE_CURRENCY_POS = 3;
+    public static final int BUY_CASH_POS = 0;
+    public static final int BUY_CURRENCY_POS = 1;
+    public static final int SALE_CASH_POS = 2;
+    public static final int SALE_CURRENCY_POS = 3;
 
     public TradeGridView(Context context) {
         this(context, null);
@@ -54,7 +54,7 @@ public class TradeGridView extends GridView {
 
     }
 
-    public void setDatas(ArrayList<TradeMsg> list) {
+    private void setDatas(ArrayList<TradeMsg> list) {
         if (null != list && 0 < list.size()) {
             tradeMsgArrayList.clear();
             tradeMsgArrayList.addAll(list);
@@ -62,7 +62,7 @@ public class TradeGridView extends GridView {
         }
     }
 
-    public void setDatas(TradeMsg buyCash, TradeMsg buyCurrency, TradeMsg sellCash,
+    public void updateDatas(TradeMsg buyCash, TradeMsg buyCurrency, TradeMsg sellCash,
                          TradeMsg sellCurrency) {
         ArrayList<TradeMsg> list = new ArrayList<>(4);
         list.add(buyCash);
@@ -78,28 +78,15 @@ public class TradeGridView extends GridView {
             tradeGridAdapter.setSelection(position);
             tradeGridAdapter.notifyDataSetChanged();
 
-            if (null != listener) {
+            if (null != onItemClickListener) {
                 TradeMsg tradeMsg = (TradeMsg) tradeGridAdapter.getItem(position);
-                switch (position) {
-                    case BUY_CASH_POS:
-                        listener.onBuyCash(tradeMsg);
-                        break;
-                    case BUY_CURRENCY_POS:
-                        listener.onBuyCurrency(tradeMsg);
-                        break;
-                    case SALE_CASH_POS:
-                        listener.onSellCash(tradeMsg);
-                        break;
-                    case SALE_CURRENCY_POS:
-                        listener.onSellCurrency(tradeMsg);
-                        break;
-                }
+                onItemClickListener.onItemClicked(position, tradeMsg);
             }
         }
     }
 
     public void setTradeOnItemClickListener(OnItemClickListener l) {
-        this.listener = l;
+        this.onItemClickListener = l;
     }
 
     public void setSelectedItemTitleColor(int color) {
@@ -113,9 +100,6 @@ public class TradeGridView extends GridView {
     }
 
     public interface OnItemClickListener {
-        void onBuyCash(TradeMsg tradeMsg);
-        void onBuyCurrency(TradeMsg tradeMsg);
-        void onSellCash(TradeMsg tradeMsg);
-        void onSellCurrency(TradeMsg tradeMsg);
+        void onItemClicked(int position, TradeMsg tradeMsg);
     }
 }
